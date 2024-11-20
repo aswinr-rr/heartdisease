@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        function validateForm() {
+            const binaryFields = ['Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'Diabetic', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer'];
+            for (const field of binaryFields) {
+                const value = document.querySelector(`input[name="${field}"]`).value;
+                if (value !== '0' && value !== '1') {
+                    alert(`Please enter 0 or 1 for ${field}.`);
+                    return false; // Prevent form submission
+                }
+            }
+            return true; // Allow form submission
+        }
+    </script>
+</head>
+<body>
+    <!-- Header Title Positioned in the Top Left Corner -->
+    <div class="header-title">
+        <h2><center>Enter Input for Prediction</center></h2>
+    </div>
+    
+    <!-- Centered Form -->
+    <form action="/predict" method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="BMI">BMI:</label>
+            <input type="number" name="BMI" placeholder="BMI" step="any" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Smoking">Smoking (1=Yes, 0=No):</label>
+            <input type="number" name="Smoking" placeholder="Smoking" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="AlcoholDrinking">Alcohol Drinking (1=Yes, 0=No):</label>
+            <input type="number" name="AlcoholDrinking" placeholder="Alcohol Drinking" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Stroke">Stroke (1=Yes, 0=No):</label>
+            <input type="number" name="Stroke" placeholder="Stroke" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="PhysicalHealth">Physical Health:</label>
+            <input type="number" name="PhysicalHealth" placeholder="Physical Health" step="any" required>
+        </div>
+
+        <div class="form-group">
+            <label for="MentalHealth">Mental Health:</label>
+            <input type="number" name="MentalHealth" placeholder="Mental Health" step="any" required>
+        </div>
+
+        <div class="form-group">
+            <label for="DiffWalking">Difficulty Walking (1=Yes, 0=No):</label>
+            <input type="number" name="DiffWalking" placeholder="DiffWalking" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Sex">Sex (1=Male, 0=Female):</label>
+            <input type="number" name="Sex" placeholder="Sex" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="number" name="Age" placeholder="Age" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Diabetic">Diabetic:</label>
+            <input type="number" name="Diabetic" placeholder="Diabetic" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="PhysicalActivity">Physical Activity (1=Yes, 0=No):</label>
+            <input type="number" name="PhysicalActivity" placeholder="Physical Activity" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="SleepTime">Sleep Time:</label>
+            <input type="number" name="SleepTime" placeholder="Sleep Time" step="any" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Asthma">Asthma (1=Yes, 0=No):</label>
+            <input type="number" name="Asthma" placeholder="Asthma" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="KidneyDisease">Kidney Disease (1=Yes, 0=No):</label>
+            <input type="number" name="KidneyDisease" placeholder="Kidney Disease" step="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="SkinCancer">Skin Cancer (1=Yes, 0=No):</label>
+            <input type="number" name="SkinCancer" placeholder="Skin Cancer" step="1" required>
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+    
+    {% if prediction_text %}
+        <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
